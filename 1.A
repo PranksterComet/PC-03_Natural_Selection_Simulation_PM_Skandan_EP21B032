@@ -3,7 +3,7 @@ import random
 '''
 NOTE: This program prints out the matrix in each iteration showing the position of the food particles and organism, disableing this would make the program fast enough 
 to give the required 10,000 iterations (this has been tested). Inputs required are matrix size, number of food particles, their positions in (row, col), sensing
-Manhattan range
+Manhattan range, the lists at the end are the list of positions in all iterations and current target as of last iteration
 '''
 
 
