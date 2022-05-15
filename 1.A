@@ -1,0 +1,155 @@
+import random
+
+'''
+Things to do:
+Bound within matrix
+Start walking towards food '
+
+'''
+
+
+
+cont = True
+while cont:
+    n = int(input("Matrix size: "))
+    f = int(input("Amount of Food: "))
+    pos = [[n//2, n//2]] #List of Positions
+    it = int(input("Number of Iterations: ")) #Iterations
+    Mdis = int(input("Enter Manhattan Range: ")) #Manhattan Range
+  
+
+    org = 1
+    food = 2
+    empty = 0
+
+    #Positions for Food
+    fpos = []
+
+    M = [[0]*n for i in range(n)]
+    
+    for i in range(f):
+        r = int(input("Enter Row Index: "))
+        c = int(input("Enter Col Index: "))
+        fpos.append([r, c])
+        M[r][c] = food    
+    
+
+    
+    target = [] #queue
+    for i in range(0, it): #pos[i] is current position
+        print("Iteration: " + str(i))
+        #Number of targets within range like food
+         
+        M[pos[i][0]][pos[i][1]] = 1
+        
+        #current row and col in this iteration
+        r = pos[i][0]
+        c = pos[i][1]
+        
+        #Scan for food within manhattan range
+        '''
+        Method1:
+        for j in range(-1*Mdis, Mdis + 1):
+            for k in range(-1*(Mdis-abs(j)), Mdis-abs(j)+1):
+                #print(str(j) + " " + str(k))
+                if(M[pos[i][0] + j][pos[i][1] + k]==2):
+                    food += 1
+        print(food)
+        '''
+
+        #Iterating in the order of increasing distance
+
+        
+        for j in range(1, Mdis+1):
+            if len(target) > 0:
+                break
+            for k in range(0, 2*j):
+                dr = abs(k-j)-j
+                dc = (j-k)
+                if(r + dr>=0 and r + dr < n and c + dc >= 0 and c + dc < n): #Check whether scanned cell lies within matrix
+                    if(M[r + dr][c + dc] == food):
+                        
+                        target.append([r+dr, c+dc])
+                        break
+            if len(target) > 0:
+                break
+            for k in range(0, 2*j):
+                dr = j - abs(k-j)
+                dc = k-j
+                if(r + dr>=0 and r + dr < n and c + dc >= 0 and c + dc < n):
+                    if(M[r + dr][c + dc] == food):
+                        
+                        target.append([r+dr, c+dc])
+                        break
+
+    
+            
+        for j in M:
+            print(j)
+        
+        
+            
+        d = [1, 2, 3, 4]  #Random int from 1 to 4 specifies direction, 1:UP, 2:DOWN, 3:LEFT, 4:RIGHT
+        if(r == 0):
+            d.remove(1)
+        if(r == n-1):
+            d.remove(2)
+        if(c == 0):
+            d.remove(3)
+        if(c == n-1):
+            d.remove(4)
+
+        ind = random.randint(0, len(d)-1)
+
+        if(len(target) != 0):
+            dr = target[0][0] - r
+            dc = target[0][1] - c
+            if(dc == 0 and abs(dr) == 1):
+                fpos.remove([target[0][0], target[0][1]])    
+                target.pop()
+                 
+            elif(dr<0):
+                dr = -1
+                dc = 0
+            elif(dr>0):
+                dr = 1
+                dc = 0
+            elif(dr == 0):
+                if(abs(dc) == 1):
+                   fpos.remove([target[0][0], target[0][1]]) 
+                   target.pop()
+                elif(dc>0):
+                    dc = 1
+                    dr = 0
+                elif(dc<0):
+                    dc = -1
+                    dr = 0
+        else:    
+            dr = 0
+            dc = 0
+            if d[ind]==1:
+                dr = -1
+            elif d[ind]==2:
+                dr = 1
+            elif d[ind]==3:
+                dc = -1
+            elif d[ind]==4:
+                dc = 1
+
+        M[r][c] = 0
+        pos.append([r+dr, c+dc])
+
+        '''             
+        for i in range(n):
+            for j in range(n):
+                M[i][j] = 0
+        '''
+
+    print(pos)
+    print(target)
+    res = input("Do you want to continue? ")
+            
+    if(res == 'n'):
+        cont = False
+        
+    
