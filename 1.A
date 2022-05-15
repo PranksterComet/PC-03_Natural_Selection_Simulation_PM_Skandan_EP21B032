@@ -1,10 +1,9 @@
 import random
 
 '''
-Things to do:
-Bound within matrix
-Start walking towards food '
-
+NOTE: This program prints out the matrix in each iteration showing the position of the food particles and organism, disableing this would make the program fast enough 
+to give the required 10,000 iterations (this has been tested). Inputs required are matrix size, number of food particles, their positions in (row, col), sensing
+Manhattan range
 '''
 
 
@@ -83,7 +82,7 @@ while cont:
                         break
 
     
-            
+        #Disable this to run program faster    
         for j in M:
             print(j)
         
