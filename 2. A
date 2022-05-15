@@ -1,0 +1,53 @@
+          # Co-op   Cheat 
+Points =  [[[2,2], [-1,3]],
+          [[3,-1], [0,0]]]
+it = int(input("Enter number of Iterations: "))
+#0 --> Co-op
+#1 --> Cheat
+cont = True
+
+'''
+NOTE:
+This program outputs the points of each player every iteration, was used to create the table 
+'''
+
+while cont == True:
+    move = []
+
+    X = input("Enter player 0: ")
+    Y = input("Enter player 1: ")
+
+    players = [X, Y]
+
+    for player in players:
+        if player == "A":
+            move.append(1)
+        elif player == "B":
+            move.append(0)
+        elif player == "C":
+            move.append(0)
+
+    Scores = [0, 0]
+
+    for i in range(1, it+1):
+
+        mx = move[0]
+        my = move[1]
+        temp = [mx, my]
+        
+        Scores[0] += Points[mx][my][0]
+        Scores[1] += Points[mx][my][1]
+
+        for j in range(2):
+            if players[j] == "C":
+                move[j] = temp[1-j] 
+            
+        print("Iteration: ", i)
+        print("X: ", Scores[0], " ","Y: ", Scores[1])
+    
+    res = input("Again?: ")
+    if res == "n":
+        cont = False
+
+
+        
