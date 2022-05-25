@@ -1,5 +1,7 @@
+
 '''
 NOTE: this code prints out scores of A, B and C types as well as their population each round. 
+Press 'n' to quit
 Min ind, max ind are for debugging purposes
 '''
 cont = True
@@ -22,9 +24,9 @@ while cont:
 
     while l[0]*l[1] + l[1]*l[2] + l[2]*l[0]>0:
         score = [0, 0, 0]
-          
+
         print("Iteration:", it)
-        
+
         for i in range(len(l)):
             if l[i] != 0:
                 if i==0:
@@ -34,42 +36,46 @@ while cont:
                 elif i==2:
                     score[i] += (-1*l[0] + 20*l[1] + 20*(l[2]-1)*sig(l[2]))
 
-        print(score)
-        
+        print("Scores: ", score)
+
         elim = 0
         temp = score.copy()
+        t = -1
         while elim<5:
-            m = min(temp)
             t = -1
-            indices = [i for i, x in enumerate(score) if x == m]
-            for k in indices:
-                if l[k] != 0:
-                    t = k
+            while t==-1:
+                m = min(temp)
+                t = -1
+                
+                indices = [i for i, x in enumerate(score) if x == m]
+                for k in indices:
+                    if l[k] != 0:
+                        t = k
 
-            if t == -1:
-                temp.remove(m)    
-                        
-            print("Min Ind: ", t)
+                if t == -1:
+                    temp.remove(m)    
+
+            #print("Min Ind: ", t)
             if l[t] > 5 - elim:
                 l[t] -= (5 - elim)
                 elim = 5
             elif l[t] <= 5 - elim:
                 elim += l[t]
                 l[t] = 0
-        
-        
+            
+
         t = score.index(max(score))
-        
-        print("Max Ind:", t)
+
+        #print("Max Ind:", t)
         l[t] += 5
-        print(l)
+        print("Players: ", l)
         '''       
         for i in range(len(l)):
             if l[i] == 0:
                 l.remove(l[i])
         '''
-             
-        
+
+
         it += 1
 
     res = input("Do you want to continue?")
