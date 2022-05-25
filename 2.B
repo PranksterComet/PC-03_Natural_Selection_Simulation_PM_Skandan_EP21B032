@@ -3,6 +3,8 @@
 NOTE: this code prints out scores of A, B and C types as well as their population each round. 
 Press 'n' to quit
 Min ind, max ind are for debugging purposes
+For eliminating the lowest 5, the player with the lowest score and non-zero player loses 5 players if value>=5, else loses all its players if value < 5
+this process is repeated till 5 players are eliminated
 '''
 cont = True
 
